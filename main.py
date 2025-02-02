@@ -37,7 +37,7 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
         continue
     
     matches = cv2.FlannBasedMatcher({"algorithm": 1, "trees": 10}, {}).knnMatch(descriptors_one, descriptors_two, k=2)
-    match_points = [p for p, q in matches if p.distance < 0.2 * q.distance]
+    match_points = [p for p, q in matches if p.distance < 0.3 * q.distance]
 
     keypoints = min(len(keypoints_one), len(keypoints_two))
 

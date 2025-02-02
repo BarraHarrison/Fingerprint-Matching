@@ -17,3 +17,8 @@ kp1, kp1, mp = None, None, None
 for file in [file for file in os.listdir("SOKOFingerprints/SOCOFing/Real")][:1000]:
     fingerprint_image = cv2.imread("SOKOFingerprints/SOCOFing/Real" + file)
     sift = cv2.SIFT_create()
+
+    keypoints_one, descriptors_one = sift.detectAndCompute(sample, None)
+    keypoints_two, descriptors_two = sift.detectAndCompute(fingerprint_image, None)
+    
+    matches = cv2.FlannBasedMatcher({"algorithm": 1, "trees": 10}, {}).knnMatch(descriptors_one, descriptors_two)

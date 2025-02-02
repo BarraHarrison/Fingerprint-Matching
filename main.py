@@ -4,9 +4,13 @@ import cv2
 
 sample = cv2.imread("SOKOFingerprints/SOCOFing/Altered/Altered-Hard/49__M_Right_index_finger_Obl.BMP")
 
+if sample is None:
+    print("Error: Could not load sample image.")
+    exit()
+
 best_score = 0
-Image = None
-filename = None
+best_image = None
+best_filename = None
 kp1, kp2, mp = None, None, None
 
 counter = 0
@@ -41,8 +45,8 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
         match_score = len(match_points) / keypoints * 100
         if match_score > best_score:
             best_score = match_score
-            filename = file
-            image = fingerprint_image
+            best_filename = file
+            best_image = fingerprint_image
             kp1, kp2, mp = keypoints_one, keypoints_two, match_points
 
 print(f"BEST MATCH: {filename}" )

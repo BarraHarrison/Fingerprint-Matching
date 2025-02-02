@@ -40,3 +40,12 @@ for file in [file for file in os.listdir("SOKOFingerprints/SOCOFing/Real")][:100
         filename = file
         image = fingerprint_image
         kp1, kp2, mp = keypoints_one, keypoints_two, match_points
+
+print("BEST MATCH: " + filename)
+print("SCORE " +  str(best_score))
+
+result = cv2.drawMatches(sample, kp1, image, kp2, mp, None)
+result = cv2.resize(result, fx=4, fy=4)
+cv2.imshow("Result", result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()

@@ -14,5 +14,6 @@ Image = None
 filename = None
 kp1, kp1, mp = None, None, None
 
-for file in [file for file in os.listdir("SOKOFingerprints/SOCOFing/Real")]:
-    pass
+for file in [file for file in os.listdir("SOKOFingerprints/SOCOFing/Real")][:1000]:
+    fingerprint_image = cv2.imread("SOKOFingerprints/SOCOFing/Real" + file)
+    sift = cv2.SIFT_create()

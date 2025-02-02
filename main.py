@@ -49,11 +49,11 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
             best_image = fingerprint_image
             kp1, kp2, mp = keypoints_one, keypoints_two, match_points
 
-print(f"BEST MATCH: {filename}" )
-print(f"SCORE: {best_score}")
+if best_filename:
+    print(f"BEST MATCH: {best_filename}" )
+    print(f"SCORE: {best_score}")
 
-if image is not None:
-    result = cv2.drawMatches(sample, kp1, image, kp2, mp, None)
+    result = cv2.drawMatches(sample, kp1, best_image, kp2, mp, None)
     result = cv2.resize(result, None, fx=4, fy=4)
     cv2.imshow("Result", result)
     cv2.waitKey(0)

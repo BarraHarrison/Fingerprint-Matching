@@ -14,7 +14,11 @@ Image = None
 filename = None
 kp1, kp1, mp = None, None, None
 
+counter = 0
 for file in [file for file in os.listdir("SOKOFingerprints/SOCOFing/Real")][:1000]:
+    if counter % 10 == 0:
+        print(counter)
+    counter += 1
     fingerprint_image = cv2.imread("SOKOFingerprints/SOCOFing/Real" + file)
     sift = cv2.SIFT_create()
 

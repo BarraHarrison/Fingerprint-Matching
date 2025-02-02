@@ -50,7 +50,7 @@ print(f"SCORE: {best_score}")
 
 if image is not None:
     result = cv2.drawMatches(sample, kp1, image, kp2, mp, None)
-    result = cv2.resize(result, (0,0), fx=4, fy=4)
+    result = cv2.resize(result, None, fx=4, fy=4)
     cv2.imshow("Result", result)
     cv2.waitKey(0)
     cv2.destroyAllWindows()

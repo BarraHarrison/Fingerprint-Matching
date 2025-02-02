@@ -30,3 +30,13 @@ for file in [file for file in os.listdir("SOKOFingerprints/SOCOFing/Real")][:100
             match_points.append(p)
 
     keypoints = 0
+    if len(keypoints_one) < len(keypoints_two):
+        keypoints = len(keypoints_one)
+    else:
+        keypoints = len(keypoints_two)
+
+    if len(match_points) / keypoints * 100 > best_score:
+        best_score = len(match_points) / keypoints * 100
+        filename = file
+        image = fingerprint_image
+        kp1, kp2, mp = keypoints_one, keypoints_two, match_points

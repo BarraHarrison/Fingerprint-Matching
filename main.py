@@ -48,8 +48,11 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
 print(f"BEST MATCH: {filename}" )
 print(f"SCORE: {best_score}")
 
-result = cv2.drawMatches(sample, kp1, image, kp2, mp, None)
-result = cv2.resize(result, fx=4, fy=4)
-cv2.imshow("Result", result)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+if image is not None:
+    result = cv2.drawMatches(sample, kp1, image, kp2, mp, None)
+    result = cv2.resize(result, (0,0), fx=4, fy=4)
+    cv2.imshow("Result", result)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+else:
+    print("No valid matches found.")

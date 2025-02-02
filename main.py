@@ -7,7 +7,7 @@ sample = cv2.imread("SOKOFingerprints/SOCOFing/Altered/Altered-Hard/49__M_Right_
 best_score = 0
 Image = None
 filename = None
-kp1, kp1, mp = None, None, None
+kp1, kp2, mp = None, None, None
 
 counter = 0
 for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
@@ -33,26 +33,20 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
         continue
     
     matches = cv2.FlannBasedMatcher({"algorithm": 1, "trees": 10}, {}).knnMatch(descriptors_one, descriptors_two, k=2)
-    match_points = []
+    match_points = [p for p, q in matches if p.distance < 0.1 * q.distance]
 
-    for p, q in matches:
-        if p.distance < 0.1 * q.distance:
-            match_points.append(p)
+    keypoints = min(len(keypoints_one), len(keypoints_two))
 
-    keypoints = 0
-    if len(keypoints_one) < len(keypoints_two):
-        keypoints = len(keypoints_one)
-    else:
-        keypoints = len(keypoints_two)
+    if keypoints > 0:
+        match_score = len(match_points) / keypoints * 100
+        if match_score > best_score:
+            best_score = match_score
+            filename = file
+            image = fingerprint_image
+            kp1, kp2, mp = keypoints_one, keypoints_two, match_points
 
-    if len(match_points) / keypoints * 100 > best_score:
-        best_score = len(match_points) / keypoints * 100
-        filename = file
-        image = fingerprint_image
-        kp1, kp2, mp = keypoints_one, keypoints_two, match_points
-
-print("BEST MATCH: " + filename)
-print("SCORE " +  str(best_score))
+print(f"BEST MATCH: {filename}" )
+print(f"SCORE: {best_score}")
 
 result = cv2.drawMatches(sample, kp1, image, kp2, mp, None)
 result = cv2.resize(result, fx=4, fy=4)

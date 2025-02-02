@@ -21,4 +21,12 @@ for file in [file for file in os.listdir("SOKOFingerprints/SOCOFing/Real")][:100
     keypoints_one, descriptors_one = sift.detectAndCompute(sample, None)
     keypoints_two, descriptors_two = sift.detectAndCompute(fingerprint_image, None)
     
-    matches = cv2.FlannBasedMatcher({"algorithm": 1, "trees": 10}, {}).knnMatch(descriptors_one, descriptors_two)
+    matches = cv2.FlannBasedMatcher({"algorithm": 1, "trees": 10}, {}).knnMatch(descriptors_one, descriptors_two, k=2)
+
+    match_points = []
+
+    for p, q in matches:
+        if p.distance < 0.1 * q.distance:
+            match_points.append(p)
+
+    keypoints = 0

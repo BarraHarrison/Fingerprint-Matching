@@ -2,7 +2,7 @@
 import os 
 import cv2
 
-sample = cv2.imread("SOKOFingerprints/SOCOFing/Altered/Altered-Hard/62__M_Left_middle_finger_Obl.BMP")
+sample = cv2.imread("SOKOFingerprints/SOCOFing/Altered/Altered-Hard/108__M_Left_index_finger_Obl.BMP")
 
 if sample is None:
     print("Error: Could not load sample image.")
@@ -43,7 +43,7 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
     matches = cv2.FlannBasedMatcher({"algorithm": 1, "trees": 10}, {}).knnMatch(descriptors_one, descriptors_two, k=2)
     matches = sorted(matches, key=lambda x:x[0].distance)
     strong_matches = matches[:int(len(matches) * 0.7)]
-    match_points = [p for p, q in matches if p.distance < 0.5 * q.distance]
+    match_points = [p for p, q in strong_matches if p.distance < 0.5 * q.distance]
 
     keypoints = min(len(keypoints_one), len(keypoints_two))
 

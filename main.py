@@ -2,7 +2,7 @@
 import os 
 import cv2
 
-sample = cv2.imread("SOKOFingerprints/SOCOFing/Altered/Altered-Hard/108__M_Left_index_finger_Obl.BMP")
+sample = cv2.imread("SOKOFingerprints/SOCOFing/Altered/Altered-Hard/570__M_Left_ring_finger_Obl.BMP")
 
 if sample is None:
     print("Error: Could not load sample image.")

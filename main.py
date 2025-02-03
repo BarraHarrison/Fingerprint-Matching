@@ -48,6 +48,7 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
     matches = sorted(matches, key=lambda x:x[0].distance)
     strong_matches = matches[:int(len(matches) * 0.7)]
     match_points = [p for p, q in strong_matches if p.distance < 0.6 * q.distance]
+    print(f"Total Matches: {len(matches)}, Strong Matches Kept: {len(strong_matches)}, Final Match Points: {len(match_points)}")
 
     keypoints = min(len(keypoints_one), len(keypoints_two))
 

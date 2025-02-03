@@ -8,6 +8,10 @@ if sample is None:
     print("Error: Could not load sample image.")
     exit()
 
+sample = cv2.cvtColor(sample, cv2.COLOR_BGR2GRAY)
+sample = cv2.resize(sample, (400, 400))
+sample = cv2.equalizeHist(sample)
+
 best_score = 0
 best_image = None
 best_filename = None

@@ -17,6 +17,10 @@ best_image = None
 best_filename = None
 kp1, kp2, mp = None, None, None
 
+total_precision = 0
+total_recall = 0
+match_count = 0
+
 counter = 0
 for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
     if counter % 10 == 0:
@@ -42,15 +46,20 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
     
     matches = cv2.FlannBasedMatcher({"algorithm": 1, "trees": 10}, {}).knnMatch(descriptors_one, descriptors_two, k=2)
     matches = sorted(matches, key=lambda x:x[0].distance)
-    strong_matches = matches[:int(len(matches) * 0.7)]
-    match_points = [p for p, q in strong_matches if p.distance < 0.6 * q.distance]
+    strong_matches = matches[:int(len(matches) * 0.5)]
+    match_points = [p for p, q in strong_matches if p.distance < 0.3 * q.distance]
 
     keypoints = min(len(keypoints_one), len(keypoints_two))
 
     # precision and recall analysis
-    precision = len(match_points) / len(strong_matches) if len(strong_matches) > 0 else 0
-    recall = len(match_points) / keypoints if keypoints > 0 else 0
-    print(f"Precision: {precision:.4f}, Recall: {recall:.4f}")
+    if len(strong_matches) > 0 and keypoints > 0:
+        precision = len(match_points) / len(strong_matches)
+        recall = len(match_points) / keypoints
+        total_precision += precision
+        total_recall += recall
+        match_count += 1
+
+        print(f"Precision: {precision:.4f}, Recall: {recall:.4f}")
 
     
 

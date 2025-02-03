@@ -71,6 +71,13 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
             best_image = fingerprint_image
             kp1, kp2, mp = keypoints_one, keypoints_two, match_points
 
+if match_count > 0:
+    avg_precision = total_precision / match_count
+    avg_recall = total_recall / match_count
+    print(f"\n🔥 **Final Metrics Across All Matches:** 🔥")
+    print(f"✅ **Average Precision:** {avg_precision:.4f}")
+    print(f"✅ **Average Recall:** {avg_recall:.4f}")
+
 if best_filename:
     print(f"BEST MATCH: {best_filename}" )
     print(f"SCORE: {best_score}")

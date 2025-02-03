@@ -45,6 +45,11 @@ for file in os.listdir("SOKOFingerprints/SOCOFing/Real")[:1000]:
     strong_matches = matches[:int(len(matches) * 0.7)]
     match_points = [p for p, q in strong_matches if p.distance < 0.5 * q.distance]
 
+    # precision and recall analysis
+    precision = len(match_points) / len(strong_matches) if len(strong_matches) > 0 else 0
+    recall = len(match_points) / keypoints if keypoints > 0 else 0
+    print(f"Precision: {precision:.4f}, Recall: {recall:.4f}")
+
     keypoints = min(len(keypoints_one), len(keypoints_two))
 
     if keypoints > 0:
